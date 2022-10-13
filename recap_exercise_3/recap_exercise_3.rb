@@ -42,7 +42,7 @@ end
  
 def longest_streak(str)
     i = 0 
-    count = 0 
+    #count = 0 
     max = 0 
     streakers = []
     while i < str.length 
@@ -62,11 +62,11 @@ def longest_streak(str)
 end
  
  
-# p longest_streak('a')           # => 'a'
-# p longest_streak('accccbbb')    # => 'cccc'
-# p longest_streak('aaaxyyyyyzz') # => 'yyyyy
-# p longest_streak('aaabbb')      # => 'bbb'
-# p longest_streak('abc')         # => 'c'
+ p longest_streak('a')           # => 'a'
+ p longest_streak('accccbbb')    # => 'cccc'
+ p longest_streak('aaaxyyyyyzz') # => 'yyyyy
+ p longest_streak('aaabbb')      # => 'bbb'
+ p longest_streak('abc')         # => 'c'
 
 def bi_prime?(num)
     factors = []
@@ -169,46 +169,65 @@ class String
 #        end
 #    end
 #    p word_2        # => "DiJkStRa"
-#end 
+end 
  
  
 def multiply(num1, num2)
+    return 0 if num1 == 0 || num2 == 0 
+    
+    if num2 > 0
+        num1 + multiply(num1, num2 - 1)
+    else
+        -num1 + multiply(num1, num2 + 1)
+    end
+end
+
+# p multiply(3, 5)        # => 15
+# p multiply(5, 3)        # => 15
+# p multiply(2, 4)        # => 8
+# p multiply(0, 10)       # => 0
+# p multiply(-3, -6)      # => 18
+# p multiply(3, -6)       # => -18
+# p multiply(-3, 6)       # => -18
+
+
+def lucas_sequence(num)
+  return [] if  num == 0 
+  return [2] if num == 1
+  return [2, 1] if num == 2
+
+    arr = lucas_sequence(num - 1)
+    shovel = arr[-1] + arr[-2]
+    arr << shovel
+
 
 end
 
-p multiply(3, 5)        # => 15
-p multiply(5, 3)        # => 15
-p multiply(2, 4)        # => 8
-p multiply(0, 10)       # => 0
-p multiply(-3, -6)      # => 18
-p multiply(3, -6)       # => -18
-p multiply(-3, 6)       # => -18
-
-
-# def lucas_sequence(num)
-# 
-# 
-# end
-# 
 # p lucas_sequence(0)   # => []
 # p lucas_sequence(1)   # => [2]    
 # p lucas_sequence(2)   # => [2, 1]
 # p lucas_sequence(3)   # => [2, 1, 3]
 # p lucas_sequence(6)   # => [2, 1, 3, 4, 7, 11]
 # p lucas_sequence(8)   # => [2, 1, 3, 4, 7, 11, 18, 29]
-# 
-# 
-# 
-# def prime_factorization(num)
-# 
-# 
-# end
-# 
-# 
-#p prime_factorization(12)     # => [2, 2, 3]
-#p prime_factorization(24)     # => [2, 2, 2, 3]
-#p prime_factorization(25)     # => [5, 5]
-#p prime_factorization(60)     # => [2, 2, 3, 5]
-#p prime_factorization(7)      # => [7]
-#p prime_factorization(11)     # => [11]
-#p prime_factorization(2017)   # => [2017]
+
+
+
+def prime_factorization(num)
+    (2...num).each do |i|
+        if num % i == 0 
+            j = num / i
+            return [*prime_factorization(i), *prime_factorization(j)]
+        end
+    end
+
+    [ num ]
+end
+
+
+# prime_factorization(12)     # => [2, 2, 3]
+# prime_factorization(24)     # => [2, 2, 2, 3]
+# prime_factorization(25)     # => [5, 5]
+# prime_factorization(60)     # => [2, 2, 3, 5]
+# prime_factorization(7)      # => [7]
+# prime_factorization(11)     # => [11]
+# prime_factorization(2017)   # => [2017]
